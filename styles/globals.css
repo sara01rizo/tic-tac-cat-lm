@@ -6,7 +6,9 @@ a {
 .grid {
   display: grid;
   grid-gap: 1px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 33% 33% 33%;
+  max-width: 300px;
 }
 
 .square {
@@ -18,7 +20,7 @@ a {
 }
 
 .square_o {
-  background-color: rgb(87, 218, 21);
+  background-color: green;
 }
 
 .square_x {

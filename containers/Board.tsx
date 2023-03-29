@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import Square from "../components/Square";
+type Player = "X" | "O" | "BOTH" | null;
 
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
-  const [currentPlayer, setCurrentPlayer] = useState<'X' | '0'>(
-    Math.round(Math.random() * 1) === 1 ? 'X' : '0'
+  const [currentPlayer, setCurrentPlayer] = useState<'X' | 'O'>(
+    Math.round(Math.random() * 1) === 1 ? 'X' : 'O'
   );
-  const [winner, setWinner] = useState(null);
+  const [winner, setWinner] = useState<Player>(null);
 
 function reset(){
   setSquares(Array(9).fill(null))
   setWinner(null)
-  setCurrentPlayer(Math.round(Math.random() * 1) === 1 ? 'X' : '0')
+  setCurrentPlayer(Math.round(Math.random() * 1) === 1 ? 'X' : 'O')
 }
 
-  function setSquareValue(index){
+  function setSquareValue(index: number){
     const newData = squares.map((val, i) =>{
       if(i === index){
         return currentPlayer;
@@ -22,10 +23,10 @@ function reset(){
       return val;
     });
     setSquares(newData)
-    setCurrentPlayer(currentPlayer === 'X' ? '0' : 'X')
+    setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X')
   }
 
-  function getWinner(squares){
+  function getWinner(squares: Player[]){
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -36,11 +37,35 @@ function reset(){
       [0, 4, 8],
       [2, 4, 6],
     ];
+    for(let i = 0; i < lines.length; i++){
+        const [a, b, c] = lines[i]
+        if (
+          squares[a] &&
+          squares[a] === squares[b] &&
+          squares[a] === squares[c]
+          ) {
+              return squares[a]
+          }
+    }
+    return null
   }
+
+  useEffect(() => {
+    const w = getWinner(squares)
+    if(w){
+      setWinner(w)
+    }
+    if(!w && !squares.filter((square) => !square).length){
+      setWinner("BOTH");
+    }
+  })
 
   return (
     <div>
-      <p>Hey {currentPlayer}, it's your turn</p>
+      {!winner && <p>Hey {currentPlayer}, it's your turn</p>}
+      {winner && winner !== 'BOTH'&& <p>🏆 Congratulations {winner} you are the Winner!</p>}
+      {winner && winner === 'BOTH'&& <p>🏆 Congratulations you are both winners</p>}
+
       <div className="grid">
         {Array(9)
                 .fill(null)
