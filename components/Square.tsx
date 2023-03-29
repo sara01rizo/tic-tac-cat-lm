@@ -1,4 +1,4 @@
-type Player = "X" | "O" | null;
+type Player = "X" | "O" | "BOTH" | null;
 
 function Square({
   value,
@@ -10,10 +10,14 @@ function Square({
   onClick: () => void
 }) {
   if(!value){
-    return <button onClick={onClick} disabled={Boolean(winner)} />;
+    return <button
+      className={`square`}
+      onClick={onClick}
+      disabled={Boolean(winner)}
+    />;
   }
  return <button
-  className={`square square_${value.toLocaleLowerCase()}`}
+  className={`square square_${value.toLowerCase()}`}
   disabled>{value}</button>;
 }
 
