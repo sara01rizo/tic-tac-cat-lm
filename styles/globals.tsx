@@ -45,4 +45,13 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export default GlobalStyles;
+const IndexLayout = ({ children }: { children: any }) => {
+  return (
+    <>
+      <GlobalStyles />
+      {children}
+    </>
+  );
+};
+
+export default IndexLayout;
