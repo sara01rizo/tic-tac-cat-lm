@@ -61,7 +61,8 @@ function reset(){
   })
 
   return (
-    <div>
+    <div key={currentPlayer}>
+      <p>Hello from tic tac cat 🧶</p>
       {!winner && <p>Hey {currentPlayer}, it's your turn</p>}
       {winner && winner !== 'BOTH'&& <p>🏆 Congratulations {winner} you are the Winner!</p>}
       {winner && winner === 'BOTH'&& <p>🏆 Congratulations you are both winners</p>}
