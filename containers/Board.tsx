@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Square from "../components/Square";
+
 type Player = "X" | "O" | "BOTH" | null;
 
 function Board() {
@@ -62,12 +63,13 @@ function reset(){
 
   return (
     <div key={currentPlayer}>
-      <p>Hello from tic tac cat 🧶</p>
+
+      <h1>Tic-Tac-Cat 🧶</h1>
       {!winner && <p>Hey {currentPlayer}, it's your turn</p>}
       {winner && winner !== 'BOTH'&& <p>🏆 Congratulations {winner} you are the Winner!</p>}
       {winner && winner === 'BOTH'&& <p>🏆 Congratulations you are both winners</p>}
 
-      <div className="grid">
+      <div className="grid-board">
         {Array(9)
                 .fill(null)
                 .map((_, i) => {
@@ -81,8 +83,10 @@ function reset(){
                   );
               })}
       </div>
-      <button className="reset" onClick={reset} >RESET</button>
-    </div>
+      <br/>
+        <button className="reset" onClick={reset} >RESET</button>
+      </div>
+
   );
 }
 
